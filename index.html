@@ -1,655 +1,1115 @@
+```html
 <style>
   :root {
     --red: #C51718;
-    --red-light: #f9e8e8;
-    --red-mid: #e8a0a0;
-    --gray-100: #f5f5f4;
-    --gray-200: #e8e8e6;
-    --gray-300: #d1d1ce;
-    --gray-600: #6b6b68;
-    --gray-800: #2c2c2a;
-    --font: -apple-system, BlinkMacSystemFont, 'DM Sans', 'Helvetica Neue', sans-serif;
+    --red-soft: #fff1f1;
+    --red-soft-2: #f9dede;
+
+    --ink: #1d1d1f;
+    --text: #424245;
+    --muted: #6e6e73;
+    --line: rgba(0, 0, 0, 0.08);
+
+    --bg: #f5f5f7;
+    --surface: rgba(255, 255, 255, 0.78);
+    --surface-solid: #ffffff;
+    --surface-soft: #fbfbfd;
+
+    --shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.045);
+
+    --radius-lg: 28px;
+    --radius-md: 20px;
+    --radius-sm: 12px;
+
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    --mono: "SF Mono", "Fira Mono", Consolas, monospace;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+  }
 
-  .guide {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(197, 23, 24, 0.08), transparent 32%),
+      radial-gradient(circle at 85% 10%, rgba(197, 23, 24, 0.05), transparent 28%),
+      var(--bg);
     font-family: var(--font);
-    color: var(--gray-800);
-    max-width: 680px;
-    padding: 0 0 3rem;
+    color: var(--ink);
   }
 
-  .guide-header {
-    border-bottom: 1px solid var(--gray-200);
-    padding: 2rem 0 1.5rem;
-    margin-bottom: 2rem;
+  .dam-guide {
+    width: 100%;
+    min-height: 100vh;
+    padding: 56px 24px 80px;
   }
 
-  .header-eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+  .guide-shell {
+    width: min(1120px, 100%);
+    margin: 0 auto;
+  }
+
+  .guide-hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    margin-bottom: 16px;
     color: var(--red);
-    margin-bottom: 0.5rem;
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
   }
 
-  .header-title {
-    font-size: 26px;
-    font-weight: 500;
+  .hero-title {
+    max-width: 780px;
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(44px, 7vw, 86px);
+    font-weight: 650;
+    letter-spacing: -0.065em;
+    line-height: 0.96;
+  }
+
+  .hero-subtitle {
+    max-width: 680px;
+    margin: 26px 0 0;
+    color: var(--muted);
+    font-size: clamp(18px, 2vw, 23px);
+    font-weight: 400;
     letter-spacing: -0.02em;
-    color: var(--gray-800);
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
+    line-height: 1.45;
   }
 
-  .header-sub {
+  .intro-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: 24px;
+    margin: 34px 0 28px;
+  }
+
+  .glass-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+  }
+
+  .context-card {
+    padding: 34px;
+  }
+
+  .context-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    background: var(--red);
+  }
+
+  .context-title {
+    margin: 0 0 14px;
+    color: var(--ink);
+    font-size: 22px;
+    font-weight: 620;
+    letter-spacing: -0.03em;
+  }
+
+  .context-card p {
+    margin: 0;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.72;
+  }
+
+  .context-card p + p {
+    margin-top: 16px;
+  }
+
+  .context-card strong {
+    color: var(--ink);
+    font-weight: 650;
+  }
+
+  .principle-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 34px;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.62)),
+      var(--surface);
+  }
+
+  .principle-kicker {
+    margin-bottom: 18px;
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .principle-text {
+    margin: 0;
+    color: var(--ink);
+    font-size: 26px;
+    font-weight: 620;
+    letter-spacing: -0.045em;
+    line-height: 1.12;
+  }
+
+  .principle-note {
+    margin-top: 22px;
+    color: var(--muted);
     font-size: 14px;
-    color: var(--gray-600);
-    line-height: 1.6;
-    max-width: 520px;
+    line-height: 1.55;
   }
 
-  .context-block {
-    background: var(--gray-100);
-    border-left: 3px solid var(--red);
-    border-radius: 0 8px 8px 0;
-    padding: 1rem 1.25rem;
-    margin-bottom: 2rem;
+  .pipeline-card {
+    margin: 24px 0 42px;
+    padding: 26px 26px 22px;
+    border-radius: var(--radius-lg);
+    background: var(--surface-solid);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--line);
   }
 
-  .context-block p {
+  .pipeline-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .block-label {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .pipeline-helper {
+    color: var(--muted);
     font-size: 13px;
-    color: var(--gray-600);
-    line-height: 1.65;
-    margin-bottom: 0.5rem;
-  }
-
-  .context-block p:last-child { margin-bottom: 0; }
-
-  .context-block strong {
-    color: var(--gray-800);
-    font-weight: 500;
   }
 
   .pipeline {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin-bottom: 2.5rem;
-    overflow-x: auto;
-    padding-bottom: 4px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
   }
 
   .pipe-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    min-width: 80px;
+    position: relative;
+    min-height: 126px;
+    padding: 16px;
+    border-radius: 20px;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+  }
+
+  .pipe-step:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    top: 50%;
+    right: -11px;
+    z-index: 2;
+    transform: translateY(-50%);
+    color: var(--red);
+    font-size: 18px;
+    font-weight: 600;
   }
 
   .pipe-bubble {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--red);
-    color: white;
-    font-size: 13px;
-    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 18px;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 650;
   }
 
   .pipe-label {
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--gray-600);
-    text-align: center;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    line-height: 1.3;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
   }
 
-  .pipe-arrow {
-    flex-shrink: 0;
-    color: var(--gray-300);
-    font-size: 18px;
-    margin: 0 2px;
-    padding-bottom: 16px;
+  .pipe-meta {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .sections-stack {
+    display: grid;
+    gap: 16px;
+    margin-top: 28px;
   }
 
   .section {
-    margin-bottom: 2rem;
-    border: 0.5px solid var(--gray-200);
-    border-radius: 12px;
     overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface-solid);
+    box-shadow: var(--shadow-card);
   }
 
   .section-header {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
     align-items: center;
-    gap: 12px;
-    padding: 1rem 1.25rem;
-    background: var(--gray-100);
-    border-bottom: 0.5px solid var(--gray-200);
+    gap: 16px;
+    width: 100%;
+    padding: 22px 24px;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
     cursor: pointer;
-    user-select: none;
   }
 
   .section-header:hover {
-    background: var(--gray-200);
+    background: #fafafa;
   }
 
   .section-num {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--red);
-    color: white;
-    font-size: 12px;
-    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 650;
   }
 
   .section-title {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--gray-800);
-    flex: 1;
+    color: var(--ink);
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.035em;
   }
 
   .section-badge {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    background: var(--red-light);
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: var(--red-soft);
     color: var(--red);
-    font-weight: 500;
-    letter-spacing: 0.03em;
+    font-size: 12px;
+    font-weight: 650;
   }
 
   .section-toggle {
-    font-size: 18px;
-    color: var(--gray-600);
-    transition: transform 0.2s;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    color: var(--muted);
+    background: #f5f5f7;
+    transition: transform 0.2s ease, background 0.2s ease;
   }
 
-  .section-toggle.open {
+  .section.open .section-toggle {
     transform: rotate(180deg);
+    background: var(--red-soft);
+    color: var(--red);
   }
 
   .section-body {
-    padding: 1.25rem;
     display: none;
+    padding: 0 24px 28px 78px;
   }
 
-  .section-body.open {
+  .section.open .section-body {
     display: block;
   }
 
   .section-objective {
-    font-size: 13px;
-    color: var(--gray-600);
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 0.5px solid var(--gray-200);
+    max-width: 760px;
+    margin: 0 0 22px;
+    padding-top: 2px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.65;
   }
 
   .steps-list {
+    display: grid;
+    gap: 10px;
+    max-width: 840px;
+    margin: 0;
+    padding: 0;
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
   }
 
   .step-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
     gap: 12px;
     align-items: flex-start;
   }
 
   .step-dot {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 1.5px solid var(--red);
-    color: var(--red);
-    font-size: 11px;
-    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
     margin-top: 1px;
+    border: 1.5px solid var(--red);
+    border-radius: 999px;
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 650;
   }
 
   .step-text {
-    font-size: 14px;
-    color: var(--gray-800);
-    line-height: 1.55;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.58;
   }
 
-  .step-text code {
-    background: var(--gray-200);
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-family: 'SF Mono', 'Fira Mono', monospace;
+  .step-text strong {
+    color: var(--ink);
+    font-weight: 650;
+  }
+
+  code {
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 7px;
+    background: #f1f1f3;
     color: var(--red);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
   }
 
   .step-text em {
+    color: var(--muted);
     font-style: normal;
-    color: var(--gray-600);
-    font-size: 12px;
   }
 
   .tip-block {
-    margin-top: 1rem;
-    padding: 0.75rem 1rem;
-    background: var(--gray-100);
-    border-radius: 8px;
-    font-size: 12.5px;
-    color: var(--gray-600);
-    line-height: 1.6;
+    max-width: 840px;
+    margin-top: 22px;
+    padding: 18px 20px;
+    border: 1px solid rgba(197, 23, 24, 0.12);
+    border-radius: 18px;
+    background: var(--red-soft);
   }
 
   .tip-label {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    margin-bottom: 7px;
     color: var(--red);
-    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
-  .checklist-block {
-    margin-bottom: 1.5rem;
-    border: 0.5px solid var(--gray-200);
-    border-radius: 12px;
+  .tip-block p {
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+    gap: 24px;
+    margin-top: 44px;
+  }
+
+  .checklist-block,
+  .practices-block {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface-solid);
+    box-shadow: var(--shadow-card);
     overflow: hidden;
   }
 
-  .checklist-header {
-    background: var(--gray-800);
-    color: white;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.6rem 1rem;
+  .block-top {
+    padding: 24px 24px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .block-title {
+    margin: 0;
+    color: var(--ink);
+    font-size: 24px;
+    font-weight: 650;
+    letter-spacing: -0.045em;
+  }
+
+  .block-sub {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
   }
 
   .checklist-body {
-    padding: 0.75rem 1rem;
+    padding: 12px 24px 22px;
   }
 
   .checklist-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
     align-items: flex-start;
-    gap: 8px;
-    padding: 5px 0;
-    font-size: 13px;
-    color: var(--gray-800);
-    line-height: 1.5;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
     cursor: pointer;
-    border-bottom: 0.5px solid var(--gray-100);
   }
 
-  .checklist-item:last-child { border-bottom: none; }
+  .checklist-item:last-child {
+    border-bottom: none;
+  }
 
-  .checklist-item .cb {
-    width: 15px;
-    height: 15px;
-    border-radius: 3px;
-    border: 1.5px solid var(--gray-300);
-    flex-shrink: 0;
-    margin-top: 1px;
+  .cb {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
-    transition: all 0.15s;
+    width: 19px;
+    height: 19px;
+    margin-top: 2px;
+    border: 1.5px solid #c9c9ce;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.15s ease;
   }
 
   .checklist-item.done .cb {
-    background: var(--red);
     border-color: var(--red);
-    color: white;
+    background: var(--red);
+  }
+
+  .ci-text {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.55;
   }
 
   .checklist-item.done .ci-text {
+    color: var(--muted);
     text-decoration: line-through;
-    color: var(--gray-600);
   }
 
   .practices-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 0.75rem;
+    gap: 12px;
+    padding: 18px;
   }
 
   .practice-card {
-    background: var(--gray-100);
-    border-radius: 8px;
-    padding: 0.75rem;
-  }
-
-  .practice-icon {
-    font-size: 16px;
-    color: var(--red);
-    margin-bottom: 4px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--surface-soft);
   }
 
   .practice-title {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--gray-800);
-    margin-bottom: 3px;
+    margin: 0 0 6px;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 650;
+    letter-spacing: -0.015em;
   }
 
   .practice-desc {
-    font-size: 11.5px;
-    color: var(--gray-600);
-    line-height: 1.5;
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
   }
 
   .flow-summary {
+    margin-top: 26px;
+    padding: 22px;
+    border-radius: var(--radius-lg);
+    background: #1d1d1f;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .flow-title {
+    margin: 0 0 16px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+  }
+
+  .flow-list {
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
-    gap: 4px;
-    padding: 1rem 1.25rem;
-    background: var(--gray-800);
-    border-radius: 10px;
-    margin-top: 1.5rem;
+    gap: 8px;
+    align-items: center;
   }
 
   .flow-tag {
-    font-size: 11px;
-    font-weight: 500;
-    color: white;
-    background: rgba(255,255,255,0.12);
-    border-radius: 4px;
-    padding: 3px 8px;
-    letter-spacing: 0.02em;
+    padding: 7px 11px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.11);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
   }
 
   .flow-arr {
-    color: var(--red-mid);
-    font-size: 14px;
-    font-weight: 500;
+    color: #ffb3b3;
+    font-weight: 700;
   }
 
-  .divider {
-    height: 0.5px;
-    background: var(--gray-200);
-    margin: 2rem 0;
+  @media (max-width: 900px) {
+    .dam-guide {
+      padding: 36px 18px 64px;
+    }
+
+    .guide-hero {
+      padding: 44px 0 38px;
+    }
+
+    .intro-grid,
+    .bottom-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pipeline {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pipe-step:nth-child(3)::after {
+      display: none;
+    }
   }
 
-  .section-header.active {
-    background: var(--red-light);
-  }
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 46px;
+    }
 
-  .section-header.active .section-num {
-    background: var(--gray-800);
+    .context-card,
+    .principle-card {
+      padding: 26px;
+    }
+
+    .pipeline {
+      grid-template-columns: 1fr;
+    }
+
+    .pipe-step {
+      min-height: auto;
+    }
+
+    .pipe-step:not(:last-child)::after {
+      content: "↓";
+      top: auto;
+      right: 50%;
+      bottom: -18px;
+      transform: translateX(50%);
+    }
+
+    .section-header {
+      grid-template-columns: auto 1fr auto;
+      padding: 18px;
+    }
+
+    .section-title {
+      font-size: 18px;
+    }
+
+    .section-badge {
+      display: none;
+    }
+
+    .section-body {
+      padding: 0 18px 24px;
+    }
   }
 </style>
 
-<div class="guide">
+<div class="dam-guide">
+  <main class="guide-shell">
 
-  <div class="guide-header">
-    <div class="header-eyebrow">Symrise Library · Admin Documentation</div>
-    <div class="header-title">DAM Admin User Guide</div>
-    <div class="header-sub">Guide complet pour ajouter et rendre visibles des assets dans le Media Center, du chargement dans le back-end à l'affichage sur le front-end.</div>
-  </div>
+    <header class="guide-hero">
+      <div class="eyebrow">Symrise Library · Admin Documentation</div>
+      <h1 class="hero-title">DAM Admin User Guide</h1>
+      <p class="hero-subtitle">
+        Guide complet pour ajouter et rendre visibles des assets dans le Media Center,
+        du chargement dans le back-end à l’affichage sur le front-end.
+      </p>
+    </header>
 
-  <div class="context-block">
-    <p><strong>Back-end vs front-end</strong> — Le <strong>back-end</strong> est l'espace d'administration du DAM : c'est là qu'on charge les assets, complète les métadonnées et crée les Libraries. Le <strong>front-end</strong> est l'interface visible par les utilisateurs : c'est le Media Center où les assets sont consultés et téléchargés.</p>
-    <p>Un asset uploadé dans le back-end n'est pas automatiquement visible dans le Media Center. Il faut le connecter au front-end via une Library et une Asset Gallery.</p>
-  </div>
-
-  <div class="pipeline">
-    <div class="pipe-step">
-      <div class="pipe-bubble">1</div>
-      <div class="pipe-label">Upload</div>
-    </div>
-    <div class="pipe-arrow">›</div>
-    <div class="pipe-step">
-      <div class="pipe-bubble">2</div>
-      <div class="pipe-label">Metadata</div>
-    </div>
-    <div class="pipe-arrow">›</div>
-    <div class="pipe-step">
-      <div class="pipe-bubble">3</div>
-      <div class="pipe-label">Filtre</div>
-    </div>
-    <div class="pipe-arrow">›</div>
-    <div class="pipe-step">
-      <div class="pipe-bubble">4</div>
-      <div class="pipe-label">Library</div>
-    </div>
-    <div class="pipe-arrow">›</div>
-    <div class="pipe-step">
-      <div class="pipe-bubble">5</div>
-      <div class="pipe-label">Front-end</div>
-    </div>
-    <div class="pipe-arrow">›</div>
-    <div class="pipe-step">
-      <div class="pipe-bubble">6</div>
-      <div class="pipe-label">Gallery</div>
-    </div>
-  </div>
-
-  <div id="s1" class="section">
-    <div class="section-header" onclick="toggle('s1')">
-      <div class="section-num">1</div>
-      <div class="section-title">Charger les assets dans le back-end</div>
-      <div class="section-badge">Back-end</div>
-      <div class="section-toggle" id="t1"><i class="ti ti-chevron-down"></i></div>
-    </div>
-    <div class="section-body" id="b1">
-      <div class="section-objective">Ajouter un ou plusieurs fichiers dans le bon dossier du DAM et compléter leurs informations.</div>
-      <ul class="steps-list">
-        <li class="step-item"><div class="step-dot">1</div><div class="step-text">Aller dans <code>Explore</code>.</div></li>
-        <li class="step-item"><div class="step-dot">2</div><div class="step-text">Sélectionner le dossier dans lequel les assets doivent être chargés.</div></li>
-        <li class="step-item"><div class="step-dot">3</div><div class="step-text">Cliquer sur <code>Upload asset</code> et importer les fichiers souhaités.</div></li>
-        <li class="step-item"><div class="step-dot">4</div><div class="step-text">Compléter les <strong>métadonnées</strong> nécessaires.</div></li>
-        <li class="step-item"><div class="step-dot">5</div><div class="step-text">Ajouter les <strong>tags</strong> appropriés.</div></li>
-        <li class="step-item"><div class="step-dot">6</div><div class="step-text">Cliquer sur <code>Save and Finish</code>.</div></li>
-      </ul>
-      <div class="tip-block">
-        <div class="tip-label">À noter</div>
-        Les tags et métadonnées sont essentiels : ils conditionnent le bon fonctionnement des filtres créés à l'étape suivante.
+    <section class="intro-grid">
+      <div class="glass-card context-card">
+        <h2 class="context-title">Back-end vs front-end</h2>
+        <p>
+          Le <strong>back-end</strong> est l’espace d’administration du DAM :
+          c’est là qu’on charge les assets, complète les métadonnées, crée les filtres
+          et organise les Libraries.
+        </p>
+        <p>
+          Le <strong>front-end</strong> est l’interface visible par les utilisateurs :
+          c’est le Media Center où les assets sont consultés, recherchés et téléchargés.
+        </p>
       </div>
-    </div>
-  </div>
 
-  <div id="s2" class="section">
-    <div class="section-header" onclick="toggle('s2')">
-      <div class="section-num">2</div>
-      <div class="section-title">Créer un filtre</div>
-      <div class="section-badge">Back-end</div>
-      <div class="section-toggle" id="t2"><i class="ti ti-chevron-down"></i></div>
-    </div>
-    <div class="section-body" id="b2">
-      <div class="section-objective">Créer un filtre de recherche enregistré, qui permettra d'alimenter automatiquement une Library avec les bons assets.</div>
-      <ul class="steps-list">
-        <li class="step-item"><div class="step-dot">1</div><div class="step-text">Dans le back-end, cliquer sur <code>Search</code>.</div></li>
-        <li class="step-item"><div class="step-dot">2</div><div class="step-text">Saisir le nom exact du document ou de l'asset dans la barre de recherche.</div></li>
-        <li class="step-item"><div class="step-dot">3</div><div class="step-text">Vérifier que les bons résultats apparaissent.</div></li>
-        <li class="step-item"><div class="step-dot">4</div><div class="step-text">Cliquer sur l'icône <code>Save</code> <em>(icône disquette)</em>.</div></li>
-        <li class="step-item"><div class="step-dot">5</div><div class="step-text">Sélectionner <code>Save as</code>.</div></li>
-        <li class="step-item"><div class="step-dot">6</div><div class="step-text">Donner un nom clair au filtre. <em>Ex : Care & Wellness pictures</em></div></li>
-        <li class="step-item"><div class="step-dot">7</div><div class="step-text">Enregistrer le filtre.</div></li>
-      </ul>
-      <div class="tip-block">
-        <div class="tip-label">Convention de nommage</div>
-        Utiliser un nom descriptif et cohérent avec la future Library. Ex : <strong>Care & Wellness pictures</strong> pour le filtre → <strong>Care & Wellness</strong> pour la Library.
+      <div class="glass-card principle-card">
+        <div>
+          <div class="principle-kicker">Key principle</div>
+          <p class="principle-text">
+            Un asset uploadé dans le DAM n’est pas automatiquement visible dans le Media Center.
+          </p>
+        </div>
+        <div class="principle-note">
+          Il doit être connecté au front-end via une Library, puis affiché sur une page avec une Asset Gallery.
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div id="s3" class="section">
-    <div class="section-header" onclick="toggle('s3')">
-      <div class="section-num">3</div>
-      <div class="section-title">Créer une Library</div>
-      <div class="section-badge">Back-end</div>
-      <div class="section-toggle" id="t3"><i class="ti ti-chevron-down"></i></div>
-    </div>
-    <div class="section-body" id="b3">
-      <div class="section-objective">Créer une Library liée au filtre créé précédemment, afin de rendre les assets disponibles dans le Media Center.</div>
-      <ul class="steps-list">
-        <li class="step-item"><div class="step-dot">1</div><div class="step-text">Dans le menu de gauche, cliquer sur <code>Libraries</code>.</div></li>
-        <li class="step-item"><div class="step-dot">2</div><div class="step-text">Cliquer sur <code>New</code>.</div></li>
-        <li class="step-item"><div class="step-dot">3</div><div class="step-text">Renseigner le nom dans le champ <code>Library name</code>. <em>Ex : Care & Wellness</em></div></li>
-        <li class="step-item"><div class="step-dot">4</div><div class="step-text">Sélectionner <code>symrise.celum.cloud</code>.</div></li>
-        <li class="step-item"><div class="step-dot">5</div><div class="step-text">Cliquer sur <code>Assets</code> dans le menu de gauche.</div></li>
-        <li class="step-item"><div class="step-dot">6</div><div class="step-text">Cliquer sur <code>Add a filter</code>.</div></li>
-        <li class="step-item"><div class="step-dot">7</div><div class="step-text">Sélectionner le filtre créé à l'étape précédente.</div></li>
-        <li class="step-item"><div class="step-dot">8</div><div class="step-text">Cliquer sur <code>Create</code> en haut à droite.</div></li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="s4" class="section">
-    <div class="section-header" onclick="toggle('s4')">
-      <div class="section-num">4</div>
-      <div class="section-title">Ajouter la Library dans le front-end</div>
-      <div class="section-badge">Front-end</div>
-      <div class="section-toggle" id="t4"><i class="ti ti-chevron-down"></i></div>
-    </div>
-    <div class="section-body" id="b4">
-      <div class="section-objective">Rendre la Library disponible dans le portail Media Center, visible des utilisateurs.</div>
-      <ul class="steps-list">
-        <li class="step-item"><div class="step-dot">1</div><div class="step-text">Aller dans <code>Experience</code>.</div></li>
-        <li class="step-item"><div class="step-dot">2</div><div class="step-text">Cliquer sur les <strong>trois petits points</strong> en haut à droite.</div></li>
-        <li class="step-item"><div class="step-dot">3</div><div class="step-text">Cliquer sur <code>Edit Portal</code>.</div></li>
-        <li class="step-item"><div class="step-dot">4</div><div class="step-text">Aller dans l'onglet <code>Libraries</code>.</div></li>
-        <li class="step-item"><div class="step-dot">5</div><div class="step-text">Cliquer sur <code>Add libraries</code> et sélectionner la Library créée.</div></li>
-        <li class="step-item"><div class="step-dot">6</div><div class="step-text">Cliquer sur <code>Save</code>.</div></li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="s5" class="section">
-    <div class="section-header" onclick="toggle('s5')">
-      <div class="section-num">5</div>
-      <div class="section-title">Afficher la Library sur une page</div>
-      <div class="section-badge">Front-end</div>
-      <div class="section-toggle" id="t5"><i class="ti ti-chevron-down"></i></div>
-    </div>
-    <div class="section-body" id="b5">
-      <div class="section-objective">Ajouter une galerie d'assets sur la page souhaitée du Media Center via un widget Asset Gallery.</div>
-      <ul class="steps-list">
-        <li class="step-item"><div class="step-dot">1</div><div class="step-text">Aller sur la page à mettre à jour.</div></li>
-        <li class="step-item"><div class="step-dot">2</div><div class="step-text">Sous le titre, cliquer sur <code>+ Add section</code>.</div></li>
-        <li class="step-item"><div class="step-dot">3</div><div class="step-text">Dans <code>Choose layout</code>, sélectionner une mise en page en <strong>une colonne</strong>.</div></li>
-        <li class="step-item"><div class="step-dot">4</div><div class="step-text">Cliquer sur <code>+ Add widget</code>.</div></li>
-        <li class="step-item"><div class="step-dot">5</div><div class="step-text">Sélectionner le widget <code>Asset Gallery</code>.</div></li>
-        <li class="step-item"><div class="step-dot">6</div><div class="step-text">Dans le panneau de gauche, aller dans <code>Library</code> et sélectionner la Library créée.</div></li>
-        <li class="step-item"><div class="step-dot">7</div><div class="step-text">Vérifier que le contenu apparaît correctement sur la page.</div></li>
-        <li class="step-item"><div class="step-dot">8</div><div class="step-text">Cliquer sur <code>Update</code> en bas à gauche.</div></li>
-      </ul>
-      <div class="tip-block">
-        <div class="tip-label">Vérification</div>
-        Toujours contrôler l'affichage côté utilisateur après avoir ajouté une nouvelle Library.
+    <section class="pipeline-card">
+      <div class="pipeline-header">
+        <div class="block-label">Process overview</div>
+        <div class="pipeline-helper">6 étapes pour publier un asset correctement</div>
       </div>
-    </div>
-  </div>
 
-  <div class="divider"></div>
+      <div class="pipeline">
+        <div class="pipe-step">
+          <div class="pipe-bubble">1</div>
+          <div class="pipe-label">Upload</div>
+          <div class="pipe-meta">Charger les fichiers</div>
+        </div>
 
-  <div class="checklist-block">
-    <div class="checklist-header">Checklist de dépannage — si le contenu n'apparaît pas</div>
-    <div class="checklist-body" id="checklist">
-      <div class="checklist-item" onclick="check(this)"><div class="cb"></div><div class="ci-text">L'asset a bien été uploadé dans le bon dossier</div></div>
-      <div class="checklist-item" onclick="check(this)"><div class="cb"></div><div class="ci-text">Les métadonnées et les tags sont bien renseignés</div></div>
-      <div class="checklist-item" onclick="check(this)"><div class="cb"></div><div class="ci-text">Le filtre contient bien les bons assets</div></div>
-      <div class="checklist-item" onclick="check(this)"><div class="cb"></div><div class="ci-text">La Library est bien reliée au filtre</div></div>
-      <div class="checklist-item" onclick="check(this)"><div class="cb"></div><div class="ci-text">La Library a bien été ajoutée dans le portail</div></div>
-      <div class="checklist-item" onclick="check(this)"><div class="cb"></div><div class="ci-text">Le widget Asset Gallery utilise la bonne Library</div></div>
-    </div>
-  </div>
+        <div class="pipe-step">
+          <div class="pipe-bubble">2</div>
+          <div class="pipe-label">Metadata & tags</div>
+          <div class="pipe-meta">Qualifier les assets</div>
+        </div>
 
-  <div style="margin-bottom: 1.5rem;">
-    <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-600); margin-bottom: 0.75rem;">Bonnes pratiques</div>
-    <div class="practices-grid">
-      <div class="practice-card">
-        <div class="practice-icon"><i class="ti ti-typography" aria-hidden="true"></i></div>
-        <div class="practice-title">Nommage cohérent</div>
-        <div class="practice-desc">Garder une logique entre le filtre et la Library. Ex : <em>Care & Wellness pictures</em> → <em>Care & Wellness</em>.</div>
+        <div class="pipe-step">
+          <div class="pipe-bubble">3</div>
+          <div class="pipe-label">Filter</div>
+          <div class="pipe-meta">Identifier les bons assets</div>
+        </div>
+
+        <div class="pipe-step">
+          <div class="pipe-bubble">4</div>
+          <div class="pipe-label">Library</div>
+          <div class="pipe-meta">Créer le groupe d’assets</div>
+        </div>
+
+        <div class="pipe-step">
+          <div class="pipe-bubble">5</div>
+          <div class="pipe-label">Front-end</div>
+          <div class="pipe-meta">Ajouter la Library au portail</div>
+        </div>
+
+        <div class="pipe-step">
+          <div class="pipe-bubble">6</div>
+          <div class="pipe-label">Asset Gallery</div>
+          <div class="pipe-meta">Afficher sur la page</div>
+        </div>
       </div>
-      <div class="practice-card">
-        <div class="practice-icon"><i class="ti ti-tag" aria-hidden="true"></i></div>
-        <div class="practice-title">Tags avant publication</div>
-        <div class="practice-desc">Compléter métadonnées et tags avant de créer le filtre, pour éviter les assets manquants.</div>
-      </div>
-      <div class="practice-card">
-        <div class="practice-icon"><i class="ti ti-eye" aria-hidden="true"></i></div>
-        <div class="practice-title">Contrôle front-end</div>
-        <div class="practice-desc">Vérifier systématiquement l'affichage côté utilisateur après toute modification.</div>
-      </div>
-      <div class="practice-card">
-        <div class="practice-icon"><i class="ti ti-sitemap" aria-hidden="true"></i></div>
-        <div class="practice-title">Une Library par thème</div>
-        <div class="practice-desc">Créer des Libraries ciblées plutôt qu'une seule grande Library globale.</div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="flow-summary">
-    <span class="flow-tag">Upload</span>
-    <span class="flow-arr">→</span>
-    <span class="flow-tag">Metadata & tags</span>
-    <span class="flow-arr">→</span>
-    <span class="flow-tag">Filtre</span>
-    <span class="flow-arr">→</span>
-    <span class="flow-tag">Library</span>
-    <span class="flow-arr">→</span>
-    <span class="flow-tag">Front-end</span>
-    <span class="flow-arr">→</span>
-    <span class="flow-tag">Asset Gallery</span>
-  </div>
+    <section class="sections-stack">
 
+      <article id="s1" class="section open">
+        <button class="section-header" type="button" onclick="toggleSection('s1')">
+          <span class="section-num">1</span>
+          <span class="section-title">Charger les assets dans le back-end</span>
+          <span class="section-badge">Back-end</span>
+          <span class="section-toggle">⌄</span>
+        </button>
+
+        <div class="section-body">
+          <p class="section-objective">
+            Ajouter un ou plusieurs fichiers dans le bon dossier du DAM et compléter leurs informations.
+          </p>
+
+          <ul class="steps-list">
+            <li class="step-item">
+              <span class="step-dot">1</span>
+              <span class="step-text">Aller dans <code>Explore</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">2</span>
+              <span class="step-text">Sélectionner le dossier dans lequel les assets doivent être chargés.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">3</span>
+              <span class="step-text">Cliquer sur <code>Upload asset</code> et importer les fichiers souhaités.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">4</span>
+              <span class="step-text">Compléter les <strong>métadonnées</strong> nécessaires.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">5</span>
+              <span class="step-text">Ajouter les <strong>tags</strong> appropriés.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">6</span>
+              <span class="step-text">Cliquer sur <code>Save and Finish</code>.</span>
+            </li>
+          </ul>
+
+          <div class="tip-block">
+            <div class="tip-label">À noter</div>
+            <p>
+              Les tags et métadonnées sont essentiels : ils conditionnent le bon fonctionnement
+              des filtres créés à l’étape suivante.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <article id="s2" class="section">
+        <button class="section-header" type="button" onclick="toggleSection('s2')">
+          <span class="section-num">2</span>
+          <span class="section-title">Créer un filtre</span>
+          <span class="section-badge">Back-end</span>
+          <span class="section-toggle">⌄</span>
+        </button>
+
+        <div class="section-body">
+          <p class="section-objective">
+            Créer un filtre de recherche enregistré, qui permettra d’alimenter automatiquement
+            une Library avec les bons assets.
+          </p>
+
+          <ul class="steps-list">
+            <li class="step-item">
+              <span class="step-dot">1</span>
+              <span class="step-text">Dans le back-end, cliquer sur <code>Search</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">2</span>
+              <span class="step-text">Saisir le nom exact du document ou de l’asset dans la barre de recherche.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">3</span>
+              <span class="step-text">Vérifier que les bons résultats apparaissent.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">4</span>
+              <span class="step-text">Cliquer sur l’icône <code>Save</code> <em>icône disquette</em>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">5</span>
+              <span class="step-text">Sélectionner <code>Save as</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">6</span>
+              <span class="step-text">Donner un nom clair au filtre. <em>Ex : Care & Wellness pictures</em></span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">7</span>
+              <span class="step-text">Enregistrer le filtre.</span>
+            </li>
+          </ul>
+
+          <div class="tip-block">
+            <div class="tip-label">Convention de nommage</div>
+            <p>
+              Utiliser un nom descriptif et cohérent avec la future Library.
+              Ex : <strong>Care & Wellness pictures</strong> pour le filtre →
+              <strong>Care & Wellness</strong> pour la Library.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <article id="s3" class="section">
+        <button class="section-header" type="button" onclick="toggleSection('s3')">
+          <span class="section-num">3</span>
+          <span class="section-title">Créer une Library</span>
+          <span class="section-badge">Back-end</span>
+          <span class="section-toggle">⌄</span>
+        </button>
+
+        <div class="section-body">
+          <p class="section-objective">
+            Créer une Library liée au filtre créé précédemment, afin de rendre les assets disponibles dans le Media Center.
+          </p>
+
+          <ul class="steps-list">
+            <li class="step-item">
+              <span class="step-dot">1</span>
+              <span class="step-text">Dans le menu de gauche, cliquer sur <code>Libraries</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">2</span>
+              <span class="step-text">Cliquer sur <code>New</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">3</span>
+              <span class="step-text">Renseigner le nom dans le champ <code>Library name</code>. <em>Ex : Care & Wellness</em></span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">4</span>
+              <span class="step-text">Sélectionner <code>symrise.celum.cloud</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">5</span>
+              <span class="step-text">Cliquer sur <code>Assets</code> dans le menu de gauche.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">6</span>
+              <span class="step-text">Cliquer sur <code>Add a filter</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">7</span>
+              <span class="step-text">Sélectionner le filtre créé à l’étape précédente.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">8</span>
+              <span class="step-text">Cliquer sur <code>Create</code> en haut à droite.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="s4" class="section">
+        <button class="section-header" type="button" onclick="toggleSection('s4')">
+          <span class="section-num">4</span>
+          <span class="section-title">Ajouter la Library dans le front-end</span>
+          <span class="section-badge">Front-end</span>
+          <span class="section-toggle">⌄</span>
+        </button>
+
+        <div class="section-body">
+          <p class="section-objective">
+            Rendre la Library disponible dans le portail Media Center, visible des utilisateurs.
+          </p>
+
+          <ul class="steps-list">
+            <li class="step-item">
+              <span class="step-dot">1</span>
+              <span class="step-text">Aller dans <code>Experience</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">2</span>
+              <span class="step-text">Cliquer sur les <strong>trois petits points</strong> en haut à droite.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">3</span>
+              <span class="step-text">Cliquer sur <code>Edit Portal</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">4</span>
+              <span class="step-text">Aller dans l’onglet <code>Libraries</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">5</span>
+              <span class="step-text">Cliquer sur <code>Add libraries</code> et sélectionner la Library créée.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">6</span>
+              <span class="step-text">Cliquer sur <code>Save</code>.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="s5" class="section">
+        <button class="section-header" type="button" onclick="toggleSection('s5')">
+          <span class="section-num">5</span>
+          <span class="section-title">Afficher la Library sur une page</span>
+          <span class="section-badge">Front-end</span>
+          <span class="section-toggle">⌄</span>
+        </button>
+
+        <div class="section-body">
+          <p class="section-objective">
+            Ajouter une galerie d’assets sur la page souhaitée du Media Center via un widget Asset Gallery.
+          </p>
+
+          <ul class="steps-list">
+            <li class="step-item">
+              <span class="step-dot">1</span>
+              <span class="step-text">Aller sur la page à mettre à jour.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">2</span>
+              <span class="step-text">Sous le titre, cliquer sur <code>+ Add section</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">3</span>
+              <span class="step-text">Dans <code>Choose layout</code>, sélectionner une mise en page en <strong>une colonne</strong>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">4</span>
+              <span class="step-text">Cliquer sur <code>+ Add widget</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">5</span>
+              <span class="step-text">Sélectionner le widget <code>Asset Gallery</code>.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">6</span>
+              <span class="step-text">Dans le panneau de gauche, aller dans <code>Library</code> et sélectionner la Library créée.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">7</span>
+              <span class="step-text">Vérifier que le contenu apparaît correctement sur la page.</span>
+            </li>
+            <li class="step-item">
+              <span class="step-dot">8</span>
+              <span class="step-text">Cliquer sur <code>Update</code> en bas à gauche.</span>
+            </li>
+          </ul>
+
+          <div class="tip-block">
+            <div class="tip-label">Vérification</div>
+            <p>
+              Toujours contrôler l’affichage côté utilisateur après avoir ajouté une nouvelle Library.
+            </p>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="bottom-grid">
+      <div class="checklist-block">
+        <div class="block-top">
+          <h2 class="block-title">Checklist de dépannage</h2>
+          <p class="block-sub">À vérifier si le contenu n’apparaît pas dans le Media Center.</p>
+        </div>
+
+        <div class="checklist-body">
+          <div class="checklist-item" onclick="checkItem(this)">
+            <span class="cb"></span>
+            <span class="ci-text">L’asset a bien été uploadé dans le bon dossier.</span>
+          </div>
+          <div class="checklist-item" onclick="checkItem(this)">
+            <span class="cb"></span>
+            <span class="ci-text">Les métadonnées et les tags sont bien renseignés.</span>
+          </div>
+          <div class="checklist-item" onclick="checkItem(this)">
+            <span class="cb"></span>
+            <span class="ci-text">Le filtre contient bien les bons assets.</span>
+          </div>
+          <div class="checklist-item" onclick="checkItem(this)">
+            <span class="cb"></span>
+            <span class="ci-text">La Library est bien reliée au filtre.</span>
+          </div>
+          <div class="checklist-item" onclick="checkItem(this)">
+            <span class="cb"></span>
+            <span class="ci-text">La Library a bien été ajoutée dans le portail.</span>
+          </div>
+          <div class="checklist-item" onclick="checkItem(this)">
+            <span class="cb"></span>
+            <span class="ci-text">Le widget Asset Gallery utilise la bonne Library.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="practices-block">
+        <div class="block-top">
+          <h2 class="block-title">Bonnes pratiques</h2>
+          <p class="block-sub">Quelques réflexes simples pour garder un Media Center propre et fiable.</p>
+        </div>
+
+        <div class="practices-grid">
+          <div class="practice-card">
+            <h3 class="practice-title">Nommage cohérent</h3>
+            <p class="practice-desc">
+              Garder une logique entre le filtre et la Library.
+              Ex : <em>Care & Wellness pictures</em> → <em>Care & Wellness</em>.
+            </p>
+          </div>
+
+          <div class="practice-card">
+            <h3 class="practice-title">Tags avant publication</h3>
+            <p class="practice-desc">
+              Compléter métadonnées et tags avant de créer le filtre, pour éviter les assets manquants.
+            </p>
+          </div>
+
+          <div class="practice-card">
+            <h3 class="practice-title">Contrôle front-end</h3>
+            <p class="practice-desc">
+              Vérifier systématiquement l’affichage côté utilisateur après toute modification.
+            </p>
+          </div>
+
+          <div class="practice-card">
+            <h3 class="practice-title">Une Library par thème</h3>
+            <p class="practice-desc">
+              Créer des Libraries ciblées plutôt qu’une seule grande Library globale.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow-summary">
+      <h2 class="flow-title">Résumé rapide</h2>
+      <div class="flow-list">
+        <span class="flow-tag">Upload</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-tag">Metadata & tags</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-tag">Filter</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-tag">Library</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-tag">Front-end</span>
+        <span class="flow-arr">→</span>
+        <span class="flow-tag">Asset Gallery</span>
+      </div>
+    </section>
+
+  </main>
 </div>
 
 <script>
-function toggle(id) {
-  var body = document.getElementById('b' + id.replace('s',''));
-  var tog = document.getElementById('t' + id.replace('s',''));
-  var hdr = document.querySelector('#' + id + ' .section-header');
-  if (body.classList.contains('open')) {
-    body.classList.remove('open');
-    tog.classList.remove('open');
-    hdr.classList.remove('active');
-  } else {
-    body.classList.add('open');
-    tog.classList.add('open');
-    hdr.classList.add('active');
+  function toggleSection(id) {
+    const section = document.getElementById(id);
+    section.classList.toggle("open");
   }
-}
 
-function check(el) {
-  el.classList.toggle('done');
-  var cb = el.querySelector('.cb');
-  if (el.classList.contains('done')) {
-    cb.innerHTML = '✓';
-  } else {
-    cb.innerHTML = '';
+  function checkItem(item) {
+    item.classList.toggle("done");
+    const box = item.querySelector(".cb");
+    box.textContent = item.classList.contains("done") ? "✓" : "";
   }
-}
-
-document.getElementById('s1').querySelector('.section-header').click();
 </script>
+```
